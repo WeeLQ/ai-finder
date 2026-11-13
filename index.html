@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="AI Finder — каталог нейросетей для текста, изображений, видео, музыки и работы.">
+  <title>AI Finder — найди свой ИИ</title>
+  <style>
+    :root{--bg:#090b13;--panel:#111522;--panel2:#171c2c;--line:#252c40;--text:#f4f6ff;--muted:#9ba5bd;--purple:#9275ff;--cyan:#5edbdb;--green:#80e0ae}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 50% -15%,#27204d 0,transparent 42%),var(--bg);color:var(--text);font:15px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+    a{color:inherit;text-decoration:none}.wrap{width:min(1160px,calc(100% - 40px));margin:auto}
+    header{height:76px;border-bottom:1px solid #ffffff12;background:#090b13c9;backdrop-filter:blur(14px);position:sticky;top:0;z-index:5}
+    .nav{height:100%;display:flex;align-items:center;justify-content:space-between}.brand{display:flex;align-items:center;gap:11px;font-weight:800;font-size:20px;letter-spacing:-.6px}
+    .brandmark{width:36px;height:36px;border-radius:12px;background:linear-gradient(135deg,var(--purple),#5edbdb);display:grid;place-items:center;color:#080b14;font-weight:900}
+    .navlinks{display:flex;gap:25px;color:var(--muted);font-size:14px}.navlinks a:hover{color:white}
+    .nav-cta{padding:10px 15px;border:1px solid var(--line);border-radius:12px;font-size:13px}
+    .hero{text-align:center;padding:78px 0 42px}.eyebrow{display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border:1px solid #9275ff55;background:#9275ff14;border-radius:999px;color:#c7baff;font-size:12px;font-weight:700;letter-spacing:.3px}
+    h1{font-size:clamp(40px,7vw,70px);line-height:1.04;letter-spacing:-3px;margin:22px 0 16px}.gradient{background:linear-gradient(90deg,#b9a7ff,#67e1dd);-webkit-background-clip:text;background-clip:text;color:transparent}
+    .hero p{max-width:620px;margin:0 auto;color:var(--muted);font-size:17px}
+    .searchbox{max-width:700px;margin:30px auto 0;display:flex;align-items:center;gap:12px;padding:8px 9px 8px 18px;background:#151a2a;border:1px solid #343c56;border-radius:16px;box-shadow:0 18px 60px #0005}
+    .searchbox span{font-size:20px;color:#a9b1c7}.searchbox input{flex:1;min-width:0;background:none;border:0;outline:0;color:white;font-size:15px}.searchbox input::placeholder{color:#79839c}
+    .searchbox button,.primary{border:0;background:linear-gradient(110deg,#9a7cff,#5fcfce);color:#090b13;font-weight:800;padding:12px 18px;border-radius:11px;cursor:pointer}
+    .stats{display:flex;justify-content:center;gap:34px;margin-top:28px;color:var(--muted);font-size:12px}.stats b{color:#fff;font-size:14px;margin-right:4px}
+    .section{padding:34px 0}.section-head{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:20px}.section-head h2{font-size:25px;letter-spacing:-.8px;margin:0}.section-head p{color:var(--muted);margin:5px 0 0;font-size:13px}
+    .categories{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}.cat{border:1px solid var(--line);background:linear-gradient(145deg,#151a2a,#101421);padding:16px 12px;border-radius:15px;text-align:left;cursor:pointer;color:white;transition:.2s}
+    .cat:hover,.cat.active{border-color:#9275ff;transform:translateY(-2px);background:#201c39}.cat .emoji{font-size:23px;display:block;margin-bottom:10px}.cat b{font-size:13px;display:block}.cat small{color:var(--muted);font-size:11px}
+    .toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:28px 0 16px;flex-wrap:wrap}.filters{display:flex;gap:8px;flex-wrap:wrap}
+    .chip{background:#111625;color:#aab3c9;border:1px solid var(--line);border-radius:999px;padding:8px 13px;font-size:12px;cursor:pointer}.chip.active{background:#292144;border-color:#9275ff;color:#e2d9ff}
+    .count{color:var(--muted);font-size:12px}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    .card{background:linear-gradient(145deg,#151a29,#101421);border:1px solid var(--line);border-radius:17px;padding:18px;display:flex;flex-direction:column;min-height:222px;transition:.2s}
+    .card:hover{transform:translateY(-3px);border-color:#515b7b}.cardtop{display:flex;align-items:center;gap:12px}.logo{width:43px;height:43px;border-radius:13px;background:#242a3d;display:grid;place-items:center;font-size:20px;font-weight:800;flex:none}
+    .card h3{font-size:16px;margin:0 0 2px}.company{color:var(--muted);font-size:11px}.tag{margin-left:auto;font-size:10px;padding:5px 8px;border-radius:999px;background:#1a342b;color:#8ce4b4;white-space:nowrap}
+    .tag.paid{background:#382d1d;color:#f0c77b}.card p{font-size:13px;color:#aeb7ca;margin:15px 0 16px;flex:1}.cardbottom{display:flex;justify-content:space-between;align-items:center;border-top:1px solid #ffffff10;padding-top:13px}
+    .category-label{font-size:11px;color:#a99bff}.actions{display:flex;gap:8px;align-items:center}.fav{background:none;border:1px solid var(--line);color:#aeb7ca;border-radius:9px;padding:7px 9px;cursor:pointer}.fav.saved{color:#ff8fa9;border-color:#8b4057}.visit{font-size:12px;font-weight:700;color:#b9a7ff}
+    .empty{grid-column:1/-1;text-align:center;padding:48px 15px;color:var(--muted);border:1px dashed var(--line);border-radius:15px}
+    .note{border:1px solid #9275ff44;background:linear-gradient(100deg,#201a39,#121a29);border-radius:18px;padding:24px;display:flex;justify-content:space-between;align-items:center;gap:20px;margin:34px 0}
+    .note h3{margin:0 0 5px}.note p{margin:0;color:var(--muted);font-size:13px}.note a{white-space:nowrap;background:#9275ff;color:#0b0c14;padding:10px 14px;border-radius:10px;font-weight:800;font-size:12px}
+    footer{border-top:1px solid #ffffff12;padding:28px 0 38px;color:var(--muted);font-size:12px}.foot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+    @media(max-width:850px){.categories{grid-template-columns:repeat(3,1fr)}.grid{grid-template-columns:repeat(2,1fr)}.navlinks{display:none}}
+    @media(max-width:560px){.wrap{width:min(100% - 28px,1160px)}.hero{padding:55px 0 30px}h1{letter-spacing:-2px}.hero p{font-size:15px}.stats{gap:14px;flex-wrap:wrap}.categories{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}.section-head{align-items:start;flex-direction:column}.note{align-items:flex-start;flex-direction:column}.searchbox button{padding:11px 12px}.nav-cta{font-size:11px}}
+  </style>
+</head>
+<body>
+<header><div class="wrap nav">
+  <a class="brand" href="#"><span class="brandmark">✦</span> AI Finder</a>
+  <nav class="navlinks"><a href="#catalog">Каталог</a><a href="#categories">Категории</a><a href="#about">О проекте</a></nav>
+  <a class="nav-cta" href="#catalog">Исследовать ИИ&nbsp; ↗</a>
+</div></header>
+<main>
+  <section class="hero wrap">
+    <span class="eyebrow">✦ ТВОЙ НАВИГАТОР В МИРЕ ИИ</span>
+    <h1>Найди свой <span class="gradient">искусственный интеллект</span></h1>
+    <p>Подбирай нейросети для работы, творчества и повседневных задач. Сравнивай инструменты и находи подходящий за пару секунд.</p>
+    <div class="searchbox"><span>⌕</span><input id="search" type="search" placeholder="Например: создать видео, написать текст..." aria-label="Поиск нейросетей"><button id="searchBtn">Найти</button></div>
+    <div class="stats"><span><b id="toolCount">18</b> инструментов в каталоге</span><span><b>6</b> категорий</span><span><b>0 ₽</b> чтобы начать</span></div>
+  </section>
+  <section class="section wrap" id="categories">
+    <div class="section-head"><div><h2>Выбери направление</h2><p>Начни с задачи — мы покажем подходящие инструменты.</p></div></div>
+    <div class="categories" id="categoryButtons">
+      <button class="cat active" data-cat="Все"><span class="emoji">✦</span><b>Все инструменты</b><small>Весь каталог</small></button>
+      <button class="cat" data-cat="Текст"><span class="emoji">✍️</span><b>Текст и чат</b><small>Идеи и ответы</small></button>
+      <button class="cat" data-cat="Изображения"><span class="emoji">🎨</span><b>Изображения</b><small>Арты и дизайн</small></button>
+      <button class="cat" data-cat="Видео"><span class="emoji">🎬</span><b>Видео</b><small>Ролики и монтаж</small></button>
+      <button class="cat" data-cat="Музыка"><span class="emoji">🎧</span><b>Музыка и звук</b><small>Звук и голос</small></button>
+      <button class="cat" data-cat="Работа"><span class="emoji">⚡</span><b>Работа и код</b><small>Продуктивность</small></button>
+    </div>
+  </section>
+  <section class="section wrap" id="catalog">
+    <div class="section-head"><div><h2>Популярные нейросети</h2><p>Подборка известных ИИ-инструментов для разных задач.</p></div></div>
+    <div class="toolbar"><div class="filters"><button class="chip active" data-filter="all">Все</button><button class="chip" data-filter="free">Есть бесплатный доступ</button><button class="chip" data-filter="paid">Платный доступ</button><button class="chip" data-filter="fav">Избранное ♡</button></div><span class="count" id="resultCount">Показано 18 инструментов</span></div>
+    <div class="grid" id="cards"></div>
+  </section>
+  <section class="wrap" id="about"><div class="note"><div><h3>Не знаешь, какую нейросеть выбрать?</h3><p>Начни с поиска по своей задаче. Каталог будет регулярно пополняться новыми инструментами.</p></div><a href="#catalog">Смотреть каталог ↗</a></div></section>
+</main>
+<footer><div class="wrap foot"><span>© 2026 AI Finder. Независимый каталог ИИ-инструментов.</span><span>Цены и доступность могут меняться — проверяй условия на официальных сайтах.</span></div></footer>
+<script>
+const tools = [
+ {name:"ChatGPT",maker:"OpenAI",icon:"✳",cat:"Текст",free:true,desc:"Универсальный ИИ-помощник для текстов, идей, анализа и повседневных задач.",url:"https://chatgpt.com",tags:"чат текст помощник ответы"},
+ {name:"Claude",maker:"Anthropic",icon:"✴",cat:"Текст",free:true,desc:"Помогает писать, анализировать документы, рассуждать и работать с большими текстами.",url:"https://claude.ai",tags:"чат текст документы"},
+ {name:"Gemini",maker:"Google",icon:"✦",cat:"Текст",free:true,desc:"ИИ-помощник Google для вопросов, идей, обучения и творческих задач.",url:"https://gemini.google.com",tags:"чат текст google"},
+ {name:"Perplexity",maker:"Perplexity AI",icon:"⌕",cat:"Текст",free:true,desc:"Поисковый ИИ, который помогает исследовать темы и находить источники.",url:"https://www.perplexity.ai",tags:"поиск исследования источники"},
+ {name:"Midjourney",maker:"Midjourney",icon:"✺",cat:"Изображения",free:false,desc:"Генерация выразительных изображений и художественных концепций по тексту.",url:"https://www.midjourney.com",tags:"картинки изображения арт"},
+ {name:"Leonardo AI",maker:"Leonardo.Ai",icon:"◈",cat:"Изображения",free:true,desc:"Создание изображений, игровых ассетов и визуальных концепций.",url:"https://leonardo.ai",tags:"картинки изображения дизайн"},
+ {name:"Ideogram",maker:"Ideogram",icon:"▧",cat:"Изображения",free:true,desc:"Генерация изображений, в том числе дизайнов с текстом и надписями.",url:"https://ideogram.ai",tags:"картинки текст дизайн"},
+ {name:"Adobe Firefly",maker:"Adobe",icon:"✧",cat:"Изображения",free:true,desc:"Инструменты генеративного ИИ для изображений и творческих задач.",url:"https://firefly.adobe.com",tags:"картинки дизайн adobe"},
+ {name:"Runway",maker:"Runway AI",icon:"▶",cat:"Видео",free:true,desc:"ИИ-инструменты для создания и редактирования видео.",url:"https://runwayml.com",tags:"видео генерация монтаж"},
+ {name:"Pika",maker:"Pika",icon:"◉",cat:"Видео",free:true,desc:"Создание коротких видео и визуальных эффектов с помощью ИИ.",url:"https://pika.art",tags:"видео ролики эффекты"},
+ {name:"Luma Dream Machine",maker:"Luma AI",icon:"◎",cat:"Видео",free:true,desc:"Генерация видеосцен по текстовым описаниям и изображениям.",url:"https://lumalabs.ai",tags:"видео генерация"},
+ {name:"Kling AI",maker:"Kuaishou",icon:"🎞",cat:"Видео",free:true,desc:"ИИ-генерация видео и анимации из текста или изображений.",url:"https://klingai.com",tags:"видео анимация"},
+ {name:"Suno",maker:"Suno",icon:"♫",cat:"Музыка",free:true,desc:"Создание песен и музыкальных идей по текстовому описанию.",url:"https://suno.com",tags:"музыка песни звук"},
+ {name:"Udio",maker:"Udio",icon:"♪",cat:"Музыка",free:true,desc:"ИИ-сервис для экспериментов с музыкой и генерации композиций.",url:"https://www.udio.com",tags:"музыка песни"},
+ {name:"ElevenLabs",maker:"ElevenLabs",icon:"◖",cat:"Музыка",free:true,desc:"Синтез речи, озвучка и инструменты для работы с голосом.",url:"https://elevenlabs.io",tags:"голос озвучка звук"},
+ {name:"GitHub Copilot",maker:"GitHub",icon:"⌘",cat:"Работа",free:true,desc:"ИИ-помощник программиста для написания и объяснения кода.",url:"https://github.com/features/copilot",tags:"код программирование разработка"},
+ {name:"Cursor",maker:"Anysphere",icon:"↗",cat:"Работа",free:true,desc:"Редактор кода с ИИ-функциями для разработки программ и сайтов.",url:"https://cursor.com",tags:"код программирование редактор"},
+ {name:"Canva Magic Studio",maker:"Canva",icon:"◌",cat:"Работа",free:true,desc:"Набор ИИ-функций для дизайна, презентаций и визуального контента.",url:"https://www.canva.com/magic/",tags:"дизайн презентации маркетинг"}
+];
+let category="Все", filter="all";
+const favorites = new Set(JSON.parse(localStorage.getItem("aiFinderFavorites")||"[]"));
+const cards=document.getElementById("cards"), search=document.getElementById("search");
+function render(){
+ const q=search.value.trim().toLowerCase();
+ const list=tools.filter(t=>(category==="Все"||t.cat===category)&&(filter!=="free"||t.free)&&(filter!=="paid"||!t.free)&&(filter!=="fav"||favorites.has(t.name))&&(!q||[t.name,t.maker,t.desc,t.cat,t.tags].join(" ").toLowerCase().includes(q)));
+ document.getElementById("resultCount").textContent=`Показано ${list.length} из ${tools.length} инструментов`;
+ cards.innerHTML=list.length?list.map(t=>`<article class="card"><div class="cardtop"><div class="logo">${t.icon}</div><div><h3>${t.name}</h3><span class="company">${t.maker}</span></div><span class="tag ${t.free?"":"paid"}">${t.free?"Есть бесплатный доступ":"Платный"}</span></div><p>${t.desc}</p><div class="cardbottom"><span class="category-label">${t.cat}</span><div class="actions"><button class="fav ${favorites.has(t.name)?"saved":""}" data-fav="${t.name}" aria-label="В избранное">${favorites.has(t.name)?"♥":"♡"}</button><a class="visit" href="${t.url}" target="_blank" rel="noopener noreferrer">Открыть ↗</a></div></div></article>`).join(""):'<div class="empty">Ничего не найдено. Попробуй изменить запрос или фильтр.</div>';
+ document.getElementById("toolCount").textContent=tools.length;
+}
+document.getElementById("categoryButtons").addEventListener("click",e=>{const b=e.target.closest("[data-cat]");if(!b)return;category=b.dataset.cat;document.querySelectorAll(".cat").forEach(x=>x.classList.toggle("active",x===b));render()});
+document.querySelector(".filters").addEventListener("click",e=>{const b=e.target.closest("[data-filter]");if(!b)return;filter=b.dataset.filter;document.querySelectorAll(".chip").forEach(x=>x.classList.toggle("active",x===b));render()});
+cards.addEventListener("click",e=>{const b=e.target.closest("[data-fav]");if(!b)return;const n=b.dataset.fav;favorites.has(n)?favorites.delete(n):favorites.add(n);localStorage.setItem("aiFinderFavorites",JSON.stringify([...favorites]));render()});
+search.addEventListener("input",render);document.getElementById("searchBtn").addEventListener("click",()=>{document.getElementById("catalog").scrollIntoView({behavior:"smooth"})});search.addEventListener("keydown",e=>{if(e.key==="Enter")document.getElementById("catalog").scrollIntoView({behavior:"smooth"})});
+render();
+</script>
+</body>
+</html>
